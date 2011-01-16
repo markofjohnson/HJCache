@@ -26,8 +26,6 @@
 		DD1DED7012E28A12004C00BD /* HJWeakMutableArray.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1DED6712E28A12004C00BD /* HJWeakMutableArray.m */; };
 		DD1DED7512E28A52004C00BD /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = DD1DED7312E28A52004C00BD /* LICENSE */; };
 		DD1DED7612E28A52004C00BD /* README in Resources */ = {isa = PBXBuildFile; fileRef = DD1DED7412E28A52004C00BD /* README */; };
-		DD1DED8212E28B37004C00BD /* FlickrSearcgTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1DED7912E28B37004C00BD /* FlickrSearcgTVC.m */; };
-		DD1DED8312E28B37004C00BD /* FlickrSearcgTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD1DED7A12E28B37004C00BD /* FlickrSearcgTVC.xib */; };
 		DD1DED8412E28B37004C00BD /* FlickrSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1DED7C12E28B37004C00BD /* FlickrSearch.m */; };
 		DD1DED8512E28B37004C00BD /* FlickrSearchRes.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1DED7E12E28B37004C00BD /* FlickrSearchRes.m */; };
 		DD1DED8612E28B37004C00BD /* FlickrSearchTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1DED8012E28B37004C00BD /* FlickrSearchTVC.m */; };
@@ -82,9 +80,6 @@
 		DD1DED6712E28A12004C00BD /* HJWeakMutableArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJWeakMutableArray.m; sourceTree = "<group>"; };
 		DD1DED7312E28A52004C00BD /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		DD1DED7412E28A52004C00BD /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
-		DD1DED7812E28B37004C00BD /* FlickrSearcgTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrSearcgTVC.h; sourceTree = "<group>"; };
-		DD1DED7912E28B37004C00BD /* FlickrSearcgTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrSearcgTVC.m; sourceTree = "<group>"; };
-		DD1DED7A12E28B37004C00BD /* FlickrSearcgTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlickrSearcgTVC.xib; sourceTree = "<group>"; };
 		DD1DED7B12E28B37004C00BD /* FlickrSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrSearch.h; sourceTree = "<group>"; };
 		DD1DED7C12E28B37004C00BD /* FlickrSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrSearch.m; sourceTree = "<group>"; };
 		DD1DED7D12E28B37004C00BD /* FlickrSearchRes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrSearchRes.h; sourceTree = "<group>"; };
@@ -219,9 +214,6 @@
 		DD1DED7712E28B37004C00BD /* Flickr */ = {
 			isa = PBXGroup;
 			children = (
-				DD1DED7812E28B37004C00BD /* FlickrSearcgTVC.h */,
-				DD1DED7912E28B37004C00BD /* FlickrSearcgTVC.m */,
-				DD1DED7A12E28B37004C00BD /* FlickrSearcgTVC.xib */,
 				DD1DED7B12E28B37004C00BD /* FlickrSearch.h */,
 				DD1DED7C12E28B37004C00BD /* FlickrSearch.m */,
 				DD1DED7D12E28B37004C00BD /* FlickrSearchRes.h */,
@@ -316,7 +308,6 @@
 				28F335F11007B36200424DE2 /* RootViewController.xib in Resources */,
 				DD1DED7512E28A52004C00BD /* LICENSE in Resources */,
 				DD1DED7612E28A52004C00BD /* README in Resources */,
-				DD1DED8312E28B37004C00BD /* FlickrSearcgTVC.xib in Resources */,
 				DD1DED8712E28B37004C00BD /* FlickrSearchTVC.xib in Resources */,
 				DD1DED9312E28B3E004C00BD /* ImgCell.xib in Resources */,
 				DD1DED9512E28B3E004C00BD /* ImgTVC.xib in Resources */,
@@ -349,7 +340,6 @@
 				DD1DED6E12E28A12004C00BD /* HJMOUserBase.m in Sources */,
 				DD1DED6F12E28A12004C00BD /* HJObjManager.m in Sources */,
 				DD1DED7012E28A12004C00BD /* HJWeakMutableArray.m in Sources */,
-				DD1DED8212E28B37004C00BD /* FlickrSearcgTVC.m in Sources */,
 				DD1DED8412E28B37004C00BD /* FlickrSearch.m in Sources */,
 				DD1DED8512E28B37004C00BD /* FlickrSearchRes.m in Sources */,
 				DD1DED8612E28B37004C00BD /* FlickrSearchTVC.m in Sources */,

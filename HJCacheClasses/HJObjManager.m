@@ -5,7 +5,7 @@
 //  Copyright Hunter and Johnson 2009, 2010, 2011
 //  HJCache may be used freely in any iOS or Mac application free or commercial.
 //  May be redistributed as source code only if all the original files are included.
-//  See http://www.markj.net
+//  See http://www.markj.net/hjcache-iphone-image-cache/
 
 #import "HJObjManager.h"
 
@@ -39,7 +39,13 @@
 	[super dealloc];
 }
 
-
+/*
+ tells object manager to manage this user object, which will cause the object to 
+ be loaded from in-memory cache, file cache, or its url.
+ This method should only be called from the main thread of the app. If you need to call
+ it from a different thread, use this: 
+ [self.objectManager performSelectorOnMainThread:@selector(manage:) withObject:managedImage waitUntilDone:YES];
+ */
 -(BOOL) manage:(id<HJMOUser>)user {
 	id oid;
 	if (! (oid=[user oid])) { 

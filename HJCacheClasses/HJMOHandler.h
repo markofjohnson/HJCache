@@ -5,7 +5,7 @@
 //  Copyright Hunter and Johnson 2009, 2010, 2011
 //  HJCache may be used freely in any iOS or Mac application free or commercial.
 //  May be redistributed as source code only if all the original files are included.
-//  See http://www.markj.net
+//  See http://www.markj.net/hjcache-iphone-image-cache/
 
 #import <Foundation/Foundation.h>
 #import "HJWeakMutableArray.h"
@@ -13,6 +13,12 @@
 @class HJObjManager;
 @class HJMOPolicy;
 
+/*
+ HJMOHandler is an internal class, and should not be used directly 
+ for most users of HJCache. The handler is responsible for sharing the managed object between
+ different HJMOUsers, and loading it from url. If two HJMOUsers have the same oid (or url)
+ then they share the same handler instance.
+ */
 
 @interface HJMOHandler : NSObject  {
 	enum HJMOState { stateNew, stateLoading, stateLoaded, stateReady, stateFailed } state;

@@ -5,11 +5,15 @@
 //  Copyright Hunter and Johnson 2009, 2010, 2011
 //  HJCache may be used freely in any iOS or Mac application free or commercial.
 //  May be redistributed as source code only if all the original files are included.
-//  See http://www.markj.net
+//  See http://www.markj.net/hjcache-iphone-image-cache/
 
 #import <Foundation/Foundation.h>
 
 
+/*
+ A mutable array of weak references. Used so that we can hold 'back references' to objects
+ without preventing those objects from getting deallocated by normal memory management.
+ */
 @interface HJWeakMutableArray : NSObject {
 	NSMutableArray* array;
 }
