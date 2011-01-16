@@ -4,5 +4,6 @@ and caching them. Its for iPhone / iOS, it works with data other than images too
 The library is designed to make it easy to make fast scrolling table views (for example) that contain
 imaged loaded from URLs. Eg a twitter app that shows the profile pic for each post in each table cell.
 
-
+HJCache was developed as 'HJ Managed Object' hence the 'MO' in the class names, but we renamed it HJCache 
+because most people who need it probably start off looking for caching libraries. 
 
