@@ -47,7 +47,9 @@
 	[self.moHandler removeUser:self];
 	self.moHandler=nil;
 	self.image = nil;
+	[imageView removeFromSuperview];
 	self.imageView.image=nil;
+	self.imageView=nil;
 }
 
 /*

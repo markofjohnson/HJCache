@@ -46,6 +46,12 @@
 	[urlConn cancel];
 	[self clearLoadingState];
 	[users release];
+	[url release];
+	[moReadyDataFilename release];
+	[moLoadingDataFile release];
+	//NSLog(@"managed Obj retain count before handler dealloc %i",[managedObj retainCount]);
+	[managedObj release];
+	[ownPolicy release];
 	[super dealloc];
 }
 
@@ -103,7 +109,6 @@
 
 -(void)clearLoadingState {
 	self.urlConn=nil;
-	self.moData = nil;
 	[moLoadingDataFile closeFile];
 	self.moLoadingDataFile = nil;
 	self.moData = nil;
