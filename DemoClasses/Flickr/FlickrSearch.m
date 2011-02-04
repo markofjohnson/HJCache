@@ -12,12 +12,11 @@
 @implementation FlickrSearch
 
 @synthesize searchResults;
+@synthesize parser;
 
 
 - (id) init {
 	[super init];
-	imageURLs = [NSMutableArray arrayWithCapacity:100];	
-	[imageURLs retain];
 	imageURLs = [NSMutableArray arrayWithCapacity:100];	
 	[imageURLs retain];
 	imageTitles = [NSMutableArray arrayWithCapacity:100];	
@@ -71,7 +70,11 @@
 	
 	
 	self.searchResults = [[[NSMutableArray alloc] initWithCapacity:100] autorelease];
-	parser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+	
+	//Hmmm, the parser init line seems to be causing a small leak
+	//http://stackoverflow.com/questions/1598928/nsxmlparser-leaking
+	self.parser = [[[NSXMLParser alloc] initWithContentsOfURL:url] autorelease];
+	
 	[parser setDelegate:self];
 	[parser parse];
 }

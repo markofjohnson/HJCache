@@ -21,6 +21,7 @@
 }
 
 @property (nonatomic, retain) NSMutableArray* searchResults;
+@property (nonatomic, retain) NSXMLParser* parser;
 
 - (void) imageSearch:(NSString*)searchString;
 
