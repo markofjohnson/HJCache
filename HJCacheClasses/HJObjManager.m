@@ -32,6 +32,12 @@
 }
 
 -(void) dealloc {
+	//if the HJObjManager is stored in a view that gets dealloced, and that view is also using the object managers
+	// managed objects, then its possible for the object manager to dealloc before the HJMOHandlers.
+	// For this reason, have to cancel any loading handlers here, so that they don't finish loading when the 
+	// object manager itself is dealloced.
+	[self cancelLoadingObjects];
+	
 	self.loadingHandlers=nil;
 	self.memCache=nil;
 	self.policy=nil;
@@ -111,6 +117,10 @@
 	[memCache addObject:handler]; //we can ignore any handler bumped from mem cache
 }
 
-
+-(void) cancelLoadingObjects {
+	for (HJMOHandler* handler in [loadingHandlers allObjects]) {
+		[handler cancelLoading];
+	}
+}
 
 @end

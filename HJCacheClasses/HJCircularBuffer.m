@@ -114,6 +114,16 @@
 	[self removeObjectAtIndex:i];
 }
 
+-(NSArray*)allObjects {
+	NSMutableArray* all = [NSMutableArray arrayWithCapacity:[buffer count]];
+	for (id obj in buffer) {
+		if (![obj isKindOfClass:[NSNull class]]) {
+			[all addObject:obj];
+		}
+	}
+	return all;
+}
+
 
 +(void)test {
 	/*

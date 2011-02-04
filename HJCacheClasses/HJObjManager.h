@@ -81,5 +81,10 @@
  */
 -(void) handlerFinishedDownloading:(HJMOHandler*)handler;
 
+/*
+ cancels any objects that are currently loading
+ */
+-(void) cancelLoadingObjects;
+
 
 @end

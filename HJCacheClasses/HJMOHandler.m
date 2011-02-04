@@ -48,10 +48,10 @@
 	[users release];
 	[url release];
 	[moReadyDataFilename release];
-	[moLoadingDataFile release];
 	//NSLog(@"managed Obj retain count before handler dealloc %i",[managedObj retainCount]);
 	[managedObj release];
 	[ownPolicy release];
+	[oid release];
 	[super dealloc];
 }
 
@@ -112,7 +112,6 @@
 	[moLoadingDataFile closeFile];
 	self.moLoadingDataFile = nil;
 	self.moData = nil;
-	[self deleteFileIfExistsAtPath:[self.objManager.fileCache loadingFilePathForOid:oid]];
 }
 
 -(void)cancelLoading {
@@ -330,9 +329,9 @@
 		//was downloading to file
 		[moLoadingDataFile closeFile];
 		self.moLoadingDataFile = nil;
+		self.urlConn = nil;
 		NSString* readyFilename = [self.objManager.fileCache loadingFinishedForOid:oid];
 		if (readyFilename==nil) {
-			self.moLoadingDataFile = nil;
 			state = stateFailed;
 			[self callbackFailedToUsers]; 
 			return;

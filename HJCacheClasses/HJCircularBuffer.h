@@ -39,5 +39,6 @@
 -(id)findObject:(id)key;
 -(int)findIndexOfObject:(id)key;
 
+-(NSArray*)allObjects;
 
 @end
