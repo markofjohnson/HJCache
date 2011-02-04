@@ -20,6 +20,11 @@ NSString* HJMOBigFileCache_trimDateKey = @"HJMOBigFileCacheTrimDate";
 @synthesize lastTrimDate;
 @synthesize lastTrimDirNum;
 
+- (void) dealloc {
+	[lastTrimDirNum release];
+	[lastTrimDate release];	
+	[super dealloc];
+}
 
 -(void)createCacheDirsIfNeeded {
 	[super createCacheDirsIfNeeded];
