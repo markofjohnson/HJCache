@@ -38,6 +38,9 @@
 
 - (void)dealloc {
 	[self clear];
+	self.callbackOnCancel=nil;
+	self.callbackOnSetImage=nil;
+	self.loadingWheel=nil;
     [super dealloc];
 	//NSLog(@"ManagedImage dealloc");
 }
@@ -46,10 +49,12 @@
 -(void) clear {
 	[self.moHandler removeUser:self];
 	self.moHandler=nil;
-	self.image = nil;
 	[imageView removeFromSuperview];
+	self.image = nil;
 	self.imageView.image=nil;
 	self.imageView=nil;
+	self.oid=nil;
+	self.url=nil;
 }
 
 /*
@@ -142,7 +147,7 @@
 
 -(void) showLoadingWheel {
 	[loadingWheel removeFromSuperview];
-	self.loadingWheel = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray ];
+	self.loadingWheel = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray] autorelease];
 	loadingWheel.center = self.center;
 	loadingWheel.hidesWhenStopped=YES;
 	[self addSubview:loadingWheel];

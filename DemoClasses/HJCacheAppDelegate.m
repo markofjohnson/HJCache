@@ -33,9 +33,13 @@
 	// uncomment one of the view controllers below to demo HJManObj
 	
 	// this simple demo shows managed images being used to load, cache, and show images from Flickr
-	FlickrSearchTVC* flickrTVC = [[[FlickrSearchTVC alloc] initWithNibName:@"FlickrSearchTVC"
-																	bundle:nil] autorelease];
-	navigationController = [[UINavigationController alloc] initWithRootViewController:flickrTVC];
+	//FlickrSearchTVC* flickrTVC = [[[FlickrSearchTVC alloc] initWithNibName:@"FlickrSearchTVC"
+	//																bundle:nil] autorelease];
+
+	RootViewController* rootVC = [[[RootViewController alloc] init] autorelease];
+	rootVC.title = @"Demo Menu";
+	
+	navigationController = [[UINavigationController alloc] initWithRootViewController:rootVC];
 	
 	// this simple demo shows how managed images can be shared and reused in the same table
 	//ImgTVC* imgTVC = [[[ImgTVC alloc] initWithNibName:@"ImgTVC" bundle:nil] autorelease];

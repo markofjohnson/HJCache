@@ -81,6 +81,8 @@
 
 
 - (void)dealloc {
+	self.content = nil;
+	self.imgMan = nil;
     [super dealloc];
 }
 

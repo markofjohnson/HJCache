@@ -36,6 +36,7 @@
 	self.memCache=nil;
 	self.policy=nil;
 	[flyweightManagedState release];
+	self.fileCache=nil;
 	[super dealloc];
 }
 

@@ -26,7 +26,7 @@ static int nextContentID = 0;
 	c.contentID = [NSString stringWithFormat:@"%i",nextContentID];
 	c.text = [NSString stringWithFormat:@"Content %@ img %i",c.contentID, imgNum];
 	c.imgID = [NSString stringWithFormat:@"%i",imgNum];
-
+	
 	NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%i.png",imgNum]];
 	NSURL* url = [NSURL fileURLWithPath:path];				  
 	
@@ -35,6 +35,13 @@ static int nextContentID = 0;
 	return c;
 }
 
-
+-(void)dealloc {
+	[contentID release];
+	[text release];
+	[imgURL release];
+	//NSLog(@"imgID rt %i",[imgID retainCount]);
+	[imgID release];
+	[super dealloc];
+}
 
 @end

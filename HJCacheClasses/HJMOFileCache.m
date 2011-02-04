@@ -272,7 +272,7 @@ int fileAgeCompareFunction(id obj1, id obj2, void *context) {
 }
 
 -(void)trimCacheUsingBackgroundThread {
-	self.maintenanceThread = [[NSThread alloc] initWithTarget:self selector:@selector(trimCache) object:nil];
+	self.maintenanceThread = [[[NSThread alloc] initWithTarget:self selector:@selector(trimCache) object:nil] autorelease];
 	[maintenanceThread start];
 }
 
