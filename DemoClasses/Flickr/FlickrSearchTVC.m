@@ -23,7 +23,7 @@
 	self.tableView.rowHeight = 80;
 	
 	// Create the object manager
-	objMan = [[HJObjManager alloc] init];
+	objMan = [[HJObjManager alloc] initWithLoadingBufferSize:6 memCacheSize:20];
 	
 	//if you are using for full screen images, you'll need a smaller memory cache than the defaults,
 	//otherwise the cached images will get you out of memory quickly

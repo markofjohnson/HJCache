@@ -50,6 +50,9 @@
 }
 
 -(id)swapObject:(id)obj atIndex:(int)i {
+	if ([buffer count]==0) { 
+		return nil; 
+	}
 	id oldObj = [buffer objectAtIndex:i];
 	if (oldObj!=[NSNull null]) {
 		//because when old objObj replaced in the buffer, it will be released and might dealloc:

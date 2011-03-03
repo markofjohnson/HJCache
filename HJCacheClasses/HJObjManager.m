@@ -75,7 +75,8 @@
 	if (handler!=nil) {
 		//if handler from loadingHandlers, its probably in stateLoading, remember this so we don't add it to loadingHandlers again
 		handlerWasAlreadyLoading = (handler.state == stateLoading);
-
+		//NSLog(@"HJCache loading from loadingBuffer");
+		
 	} else {
 		//look in memCache for handler
 		handler = [memCache findObject:flyweightManagedState];
@@ -84,7 +85,9 @@
 			//was not in loadingHandlers or memCache. have to make a new handler to load image
 			handler = [[HJMOHandler alloc] initWithOid:user.oid url:user.url objManager:self];
 			handlerWasAllocedInThisCall=YES;
-		} 
+		} else {
+			//NSLog(@"HJCache loading from memCache");
+		}
 	}
 
 	//now use the handler can be used, whatever state its in.
@@ -112,9 +115,12 @@
 	return YES; //yes this object is now being managed. only NO if misused.
 }
 
+-(void) addHandlerToMemCache:(HJMOHandler*)handler {
+	[memCache addObject:handler]; //we can ignore any handler bumped from mem cache	
+}
+
 -(void) handlerFinishedDownloading:(HJMOHandler*)handler {
 	[loadingHandlers removeObject:handler];
-	[memCache addObject:handler]; //we can ignore any handler bumped from mem cache
 }
 
 -(void) cancelLoadingObjects {

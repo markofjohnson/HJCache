@@ -182,6 +182,7 @@
 		NSString* readyFile = [fileCache readyFilePathForOid:oid];
 		
 		if ([[NSFileManager defaultManager] fileExistsAtPath:readyFile]) {
+			//NSLog(@"HJCache loading from fileCache");
 			//mo is loaded as a file in file cache
 			self.moReadyDataFilename = readyFile;
 			if (self.policy.readsUpdateFileDate) {
@@ -189,10 +190,12 @@
 			}
 			state = stateLoaded;
 			[self goFromLoadedToReady];
+			[objManager addHandlerToMemCache:self];
 			return;
 			
 		} else {
 			//not loaded yet, so load to file because file cache in use
+			//NSLog(@"HJCache loading from url");
 			NSString* loadingFile = [fileCache loadingFilePathForOid:oid];
 		
 			BOOL ok = [[NSFileManager defaultManager] createFileAtPath:loadingFile contents:nil attributes:nil];
@@ -343,6 +346,7 @@
 	// made to decrement the count of active URLs
 	[self goFromLoadedToReady];
 	[objManager handlerFinishedDownloading:self];
+	[objManager addHandlerToMemCache:self];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {

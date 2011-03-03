@@ -79,6 +79,11 @@
 /*
  called by HJMOHandler, which is internal to the object manager and HJMOUser
  */
+-(void) addHandlerToMemCache:(HJMOHandler*)handler;
+
+/*
+ called by HJMOHandler, which is internal to the object manager and HJMOUser
+ */
 -(void) handlerFinishedDownloading:(HJMOHandler*)handler;
 
 /*
