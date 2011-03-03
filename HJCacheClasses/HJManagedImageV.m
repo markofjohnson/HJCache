@@ -142,7 +142,9 @@
 	[loadingWheel removeFromSuperview];
 	self.loadingWheel = nil;
 	self.hidden=NO;
-	[callbackOnSetImage managedImageSet:self];
+	if (image!=nil) {
+		[callbackOnSetImage managedImageSet:self];
+	}
 }
 
 -(void) showLoadingWheel {

@@ -20,6 +20,8 @@
  that has built in image object sharing, asynchronous loading, and caching.
  If you want to use HJCache for handling images (which is what its primarily designed for)
  you'll probably want to use this class or your own version of it.
+ NB HJManagedImageV is an example of how to use HJCache, its not fully functional for all cases, 
+ so don't be afraid to code your own version of it to suit your needs.
  */
 
 @class HJManagedImageV;
