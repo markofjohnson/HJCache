@@ -116,7 +116,6 @@
 	} else {
 		UIImage* modified = [self modifyImage:theImage modification:(int)mod];
 		[self setImage:modified];
-//TODO		[[ImageManager imageManager] cacheLoadedImage:self];
 	}
 }
 
