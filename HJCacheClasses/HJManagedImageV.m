@@ -32,6 +32,7 @@
 		url=nil;
 		onImageTap = nil;
 		index = -1;
+		self.userInteractionEnabled = NO; //because want to treat it like a UIImageView. Just turn this back on if you want to catch taps.
     }
     return self;
 }
@@ -164,6 +165,8 @@
 	[invo retain];
 	[onImageTap release];
 	onImageTap = invo;
+	self.userInteractionEnabled=YES; //because it's NO in the initializer, but if we want to get a callback on tap, 
+									 //then need to get touch events.
 }
 
 -(void) touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {

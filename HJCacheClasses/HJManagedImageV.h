@@ -46,7 +46,7 @@
 	BOOL isCancelled;
 	UIActivityIndicatorView* loadingWheel;
 	NSInvocation* onImageTap;
-	int index; // optional; may be used to assign an ordering to a image when working with an album, e.g.
+	int index; // optional; may be used to assign an ordering to a image.
 	int modification;
 }
 

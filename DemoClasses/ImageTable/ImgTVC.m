@@ -73,8 +73,7 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-	//UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    NSLog(@"tableView didSelectRowAtIndexPath row %i",indexPath.row);
 }
 
 
