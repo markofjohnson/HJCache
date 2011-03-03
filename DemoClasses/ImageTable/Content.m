@@ -32,6 +32,12 @@ static int nextContentID = 0;
 	
 	c.imgURL = url;
 	
+	//A quick test of urls with spaces in them...
+	// Note that this will work if loading an image from a url with a space in the filename, but not like this:
+	// c.imgURL = [NSURL URLWithString:@"http://markj.net/stuff/filename with space.png"];
+	// Only if you use the correct url escaping, which this will do for you:
+	// c.imgURL = [[[NSURL alloc] initWithScheme:@"http" host:@"markj.net" path:@"/stuff/filename with space.png"] autorelease];
+	
 	return c;
 }
 
