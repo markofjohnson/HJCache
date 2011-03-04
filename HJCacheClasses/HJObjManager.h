@@ -66,6 +66,12 @@
 
 -(HJObjManager*) init;
 
+/* 
+ If HJObjManager needs to be used to load a lot of managed objects at once, it's loading buffer needs to be big enough
+ to hold them all. This method can be used to change loading buffer size to accomodate the application going into
+ a different mode that needs to do this. It will cancel the loading of any objects that are loading at the time.
+ */
+-(void) resetLoadingBufferToSize:(int)loadingBufferSize;	
 
 /*
  tells object manager to manage this user object, which will cause the object to 
