@@ -190,7 +190,9 @@
 			}
 			state = stateLoaded;
 			[self goFromLoadedToReady];
-			[objManager addHandlerToMemCache:self];
+			if (state == stateReady || state==stateLoaded) {
+				[objManager addHandlerToMemCache:self];
+			}
 			return;
 			
 		} else {
@@ -291,10 +293,15 @@
 	} 
 	@catch (id exception) {
 		NSLog(@"%@",exception);
+		self.managedObj=nil;
 	}
 	@finally {
 		if (managedObj==nil) {
-			state = stateFailed; //was still nil, so it didn't work.
+			//managedObj was still nil, ie going from loaded to ready failed. go to stateFailed and clean up from caches
+			state = stateFailed; 
+			self.moReadyDataFilename = nil;
+			self.moData=nil;
+			[objManager removeFromHandlerFromCaches:self];
 			[self callbackFailedToUsers];
 		}
 	}
@@ -344,9 +351,11 @@
 	}
 	//TODO if app is showing a network activity monitor in the status bar, here is where a call needs to be 
 	// made to decrement the count of active URLs
-	[self goFromLoadedToReady];
 	[objManager handlerFinishedDownloading:self];
-	[objManager addHandlerToMemCache:self];
+	[self goFromLoadedToReady];
+	if (state==stateReady || state==stateLoaded) {
+		[objManager addHandlerToMemCache:self];
+	}
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
@@ -355,6 +364,9 @@
 	//TODO if app is showing a network activity monitor in the status bar, here is where a call needs to be 
 	// made to decrement the count of active URLs
 	[self clearLoadingState]; 
+	self.moReadyDataFilename = nil;
+	self.moData=nil;
+	[objManager removeFromHandlerFromCaches:self];
 	[self callbackFailedToUsers];
 }
 

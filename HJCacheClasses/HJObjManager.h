@@ -97,5 +97,10 @@
  */
 -(void) cancelLoadingObjects;
 
+/*
+ removed a single handler and its cached managed object
+ */
+-(void) removeFromHandlerFromCaches:(HJMOHandler*)handler;
+
 
 @end

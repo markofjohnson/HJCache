@@ -77,14 +77,14 @@
 	//find handler for this oid in caches, or make a new handler.
 	HJMOHandler* handler;
 	BOOL handlerWasAllocedInThisCall=NO;
-	BOOL handlerWasAlreadyLoading=NO;
+	BOOL handlerWasFromLoadingBuffer=NO;
 	
 	//look in loadingHandlers first.
 	flyweightManagedState.oid = oid;
 	handler = [loadingHandlers findObject:flyweightManagedState];
 	if (handler!=nil) {
 		//if handler from loadingHandlers, its probably in stateLoading, remember this so we don't add it to loadingHandlers again
-		handlerWasAlreadyLoading = (handler.state == stateLoading);
+		handlerWasFromLoadingBuffer = YES;
 		//NSLog(@"HJCache loading from loadingBuffer");
 		
 	} else {
@@ -105,7 +105,7 @@
 	[handler activateHandlerForUser:user]; //this can 'get things going' whatever state the handler is in
 	
 	//check if handler is loading and needs to be added to loadingHandlers buffer
-	if (!handlerWasAlreadyLoading && handler.state == stateLoading) {
+	if (!handlerWasFromLoadingBuffer && handler.state == stateLoading) {
 		//put in loadingHandlers, which is a cirular buffer so we might bump a handler out
 		HJMOHandler* bumpedHandler = (HJMOHandler*) [loadingHandlers addObject:handler];
 		
@@ -136,6 +136,14 @@
 -(void) cancelLoadingObjects {
 	for (HJMOHandler* handler in [loadingHandlers allObjects]) {
 		[handler cancelLoading];
+	}
+}
+
+-(void) removeFromHandlerFromCaches:(HJMOHandler*)handler {
+	[loadingHandlers removeObject:handler];
+	[memCache removeObject:handler];
+	if (fileCache) {
+		[fileCache removeOid:handler.oid];
 	}
 }
 
