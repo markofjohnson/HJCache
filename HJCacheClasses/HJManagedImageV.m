@@ -172,9 +172,9 @@
 	if (onImageTap) {
 		[onImageTap invoke];
 	}
+    else {
+        [super touchesEnded:touches withEvent:event];
+    }
 }
-
-
-
 
 @end
