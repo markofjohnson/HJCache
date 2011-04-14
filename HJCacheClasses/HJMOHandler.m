@@ -333,6 +333,7 @@
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    [self retain]; //ensure that self isn't released in this method when the connection is finished with it.
 	//NSLog(@"finishedLoading %@",self);
 	state = stateLoaded;
 	if (moLoadingDataFile) {
@@ -356,6 +357,7 @@
 	if (state==stateReady || state==stateLoaded) {
 		[objManager addHandlerToMemCache:self];
 	}
+    [self release];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
