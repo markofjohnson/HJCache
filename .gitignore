@@ -1,4 +1,6 @@
-/.DS_Store
+.DS_Store
 /build/
-/HJCache.xcodeproj/markj.pbxuser
-/HJCache.xcodeproj/markj.perspectivev3
+*.pbxuser
+*.perspectivev3
+xcuserdata
+project.xcworkspace
