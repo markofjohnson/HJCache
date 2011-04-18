@@ -204,7 +204,7 @@ int fileAgeCompareFunction(id obj1, id obj2, void *context) {
 	int deletedCount=0;
 	long deletedBytes=0;
 	// this loop is the slow part, which is why this whole method is run on a separate thread.
-	while (file = [dirEnum nextObject]) {
+	while ((file = [dirEnum nextObject])) {
 		NSString* filename = [NSString stringWithFormat:@"%@%@",cachePath,file];
 		NSError* e;
 		NSDictionary* fsAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filename error:&e];		
