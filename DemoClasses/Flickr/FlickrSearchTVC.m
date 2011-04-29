@@ -24,6 +24,7 @@
 	
 	// Create the object manager
 	objMan = [[HJObjManager alloc] initWithLoadingBufferSize:6 memCacheSize:20];
+  objMan.connectionRunLoopMode = NSRunLoopCommonModes;
 	
 	//if you are using for full screen images, you'll need a smaller memory cache than the defaults,
 	//otherwise the cached images will get you out of memory quickly

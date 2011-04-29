@@ -30,6 +30,8 @@
 	HJCircularBuffer* memCache;
 	HJMOHandler* flyweightManagedState;
 	HJMOFileCache* fileCache;
+  NSString* connectionRunLoopMode;
+  
 }
 
 /*
@@ -53,6 +55,12 @@
  Internal state. This is the memory cache of managed objects
  */
 @property (nonatomic, retain) HJCircularBuffer* memCache;
+
+/*
+ The run loop mode to use for NSConnections. Only set for subsequent managed object.
+ Leave nil to use the default.
+ */
+@property (nonatomic, retain) NSString* connectionRunLoopMode;
 
 
 /*

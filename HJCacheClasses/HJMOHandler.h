@@ -33,6 +33,7 @@
 	HJWeakMutableArray* users;
 	HJObjManager* objManager;
 	HJMOPolicy* ownPolicy;
+  NSString* connectionRunLoopMode;
 }
 
 @property (readonly) enum HJMOState state;
@@ -45,6 +46,7 @@
 @property (nonatomic, retain) id managedObj;
 @property (nonatomic, assign) HJObjManager* objManager;
 @property (nonatomic, retain) HJMOPolicy* ownPolicy;
+@property (nonatomic, retain) NSString* connectionRunLoopMode;
 
 
 -(HJMOHandler*)initWithOid:(id)oid_ url:(NSURL*)url_  objManager:objManager_;

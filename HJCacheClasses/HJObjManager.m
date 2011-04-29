@@ -15,6 +15,7 @@
 @synthesize policy;
 @synthesize loadingHandlers;
 @synthesize memCache, fileCache;
+@synthesize connectionRunLoopMode;
 
 
 
@@ -94,6 +95,8 @@
 		if (handler==nil) {
 			//was not in loadingHandlers or memCache. have to make a new handler to load image
 			handler = [[HJMOHandler alloc] initWithOid:user.oid url:user.url objManager:self];
+      handler.connectionRunLoopMode = self.connectionRunLoopMode;
+      
 			handlerWasAllocedInThisCall=YES;
 		} else {
 			//NSLog(@"HJCache loading from memCache");

@@ -25,6 +25,7 @@
 @synthesize managedObj;
 @synthesize objManager;
 @synthesize ownPolicy;
+@synthesize connectionRunLoopMode;
 
 
 -(HJMOHandler*)initWithOid:(id)oid_ url:(NSURL*)url_  objManager:objManager_{
@@ -260,7 +261,19 @@
 	NSURLRequest* request = [NSURLRequest requestWithURL:url 
 										  cachePolicy:NSURLRequestReloadIgnoringLocalCacheData 
 								          timeoutInterval:policy.urlTimeoutTime];
-	self.urlConn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+  
+  if(self.connectionRunLoopMode){
+    self.urlConn = [[NSURLConnection alloc]
+                    initWithRequest:request
+                    delegate:self
+                    startImmediately:NO];
+    [self.urlConn scheduleInRunLoop:[NSRunLoop currentRunLoop]
+                            forMode:self.connectionRunLoopMode];
+    [self.urlConn start];
+  }else{
+    self.urlConn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+  }
+  
 	[urlConn release];
 	if (urlConn==nil) {
 		NSLog(@"HJMOHandler nil URLConnection for %@",url);
