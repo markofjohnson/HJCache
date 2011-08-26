@@ -55,8 +55,8 @@
 @property (nonatomic, retain) UIImage* image;
 @property (nonatomic, retain) UIImageView* imageView;
 @property (nonatomic, retain) UIActivityIndicatorView* loadingWheel;
-@property (nonatomic, retain) id <HJManagedImageVDelegate> callbackOnSetImage;
-@property (nonatomic, retain) id <HJManagedImageVDelegate> callbackOnCancel;
+@property (nonatomic, assign) id <HJManagedImageVDelegate> callbackOnSetImage;
+@property (nonatomic, assign) id <HJManagedImageVDelegate> callbackOnCancel;
 
 -(void) clear;
 -(void) markCancelled;
