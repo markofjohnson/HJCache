@@ -17,7 +17,7 @@
 }
 	
 -(HJCircularBuffer*)initWithCapacity:(int)capacity {
-	[super init];
+	self = [super init];
 	buffer = [[NSMutableArray arrayWithCapacity:capacity] retain];
 	nextIndex=0;
 	NSNull* nullObj = [NSNull null];

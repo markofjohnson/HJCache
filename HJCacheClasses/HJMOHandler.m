@@ -28,15 +28,15 @@
 
 
 -(HJMOHandler*)initWithOid:(id)oid_ url:(NSURL*)url_  objManager:objManager_{
-	[super init];
+	self = [super init];
 	state = stateNew;
 	self.oid = oid_;
 	self.url = url_ ;
 	self.objManager = objManager_;
-	if (oid==nil) { 
+	if (oid==nil) {
 		self.oid = url_;
 	}
-	
+
 	users = [[HJWeakMutableArray alloc] initWithCapacity:1]; //it can expand automatically.
 	return self;
 }
@@ -64,7 +64,7 @@
 }
 
 -(HJMOPolicy*)policy {
-	if (ownPolicy) { 
+	if (ownPolicy) {
 		return ownPolicy;
 	} else {
 		return [objManager policy];
@@ -79,7 +79,7 @@
 		//can happen if users reused, and recycling code is lazy clearing old state, eg with UITableCellView
 		//NSLog(@"HJMOHandler was already managing for user");
 	}
-	
+
 	if (user.moHandler==nil) {
 		//this is the normal case, so set the state
 		user.moHandler=self;
@@ -124,7 +124,7 @@
 
 -(void)becameNotInUse {
 	//TODO is there more policy decisions here?
-	//[self cancelLoading]; //don't cancel loading, do that in dealloc. because object manager might be holding on to 
+	//[self cancelLoading]; //don't cancel loading, do that in dealloc. because object manager might be holding on to
 							//this handler in loadingHandlers to keep loading going
 }
 
@@ -157,16 +157,16 @@
 	if (fileCache==nil) { return; }
 	NSTimeInterval ageLimit = fileCache.fileAgeLimit;
 	if (ageLimit<=0) { return; }
-	
+
 	NSFileManager* fileMan = [NSFileManager defaultManager];
 
 	NSError* e;
-	NSDictionary* fsAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&e];		
+	NSDictionary* fsAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&e];
 	double ageSeconds = -1* [[fsAttributes fileModificationDate] timeIntervalSinceNow];
 
 	if (ageSeconds>(ageLimit/4)) {
 		//to save writes, file age modification date isn't changed on every access, only if 1/4 of age limit old.
-		NSString *keyArray[1] = {NSFileModificationDate}; 
+		NSString *keyArray[1] = {NSFileModificationDate};
 		id objectArray[1] = {[NSDate dateWithTimeIntervalSinceNow:0]};
 		NSDictionary* attributes = [NSDictionary dictionaryWithObjects:objectArray forKeys:keyArray count:1];
 		NSError* err;
@@ -178,9 +178,9 @@
 	HJMOFileCache* fileCache = objManager.fileCache;
 	if (fileCache) {
 		//File caching is in use
-		
+
 		NSString* readyFile = [fileCache readyFilePathForOid:oid];
-		
+
 		if ([[NSFileManager defaultManager] fileExistsAtPath:readyFile]) {
 			//NSLog(@"HJCache loading from fileCache");
 			//mo is loaded as a file in file cache
@@ -194,18 +194,18 @@
 				[objManager addHandlerToMemCache:self];
 			}
 			return;
-			
+
 		} else {
 			//not loaded yet, so load to file because file cache in use
 			//NSLog(@"HJCache loading from url");
 			NSString* loadingFile = [fileCache loadingFilePathForOid:oid];
-		
+
 			BOOL ok = [[NSFileManager defaultManager] createFileAtPath:loadingFile contents:nil attributes:nil];
 			if (!ok) {
 				state = stateFailed;
 				NSLog(@"HJMOHandler error creating loading file %@",loadingFile);
 				loadingFile = nil;
-				[self clearLoadingState]; 
+				[self clearLoadingState];
 				[self callbackFailedToUsers];
 				return;
 			} else {
@@ -213,7 +213,7 @@
 			}
 		}
 	}
-		
+
 	//if file cache is in use temporary file name is prepared, either way now load from url
 	[self startDownloadingFromURL];
 }
@@ -221,31 +221,31 @@
 
 
 -(void)activateHandlerForUser:(id<HJMOUser>)user {
-	//stateNew, stateLoading, stateLoaded, stateReady, stateFailed 
-	
+	//stateNew, stateLoading, stateLoaded, stateReady, stateFailed
+
 	switch (state) {
-			
+
 		case stateNew:
 			[self activateNewHandlerForUser:user];
 			return;
-			
+
 		case stateLoading:
 			//handler is still loading, have to wait for it to load, so nop.
 			return;
-			
+
 		case stateLoaded:
 			//for some reason it didn't go to ready when it was loaded, so try again now.
 			[self goFromLoadedToReady];
 			return;
-			
+
 		case stateReady:
 			[user managedObjReady];
 			return;
-			
+
 		case stateFailed:
 			[user managedObjFailed];
 			return;
-			
+
 		default:
 			//not supposed to get here
 			NSLog(@"HJMOHandler activateHandlerForUser error, no recognized state");
@@ -257,17 +257,16 @@
 -(void)startDownloadingFromURL {
 	//NSLog(@"HJMOHandler starting download for %@",self);
 	HJMOPolicy* policy = [self policy];
-	NSURLRequest* request = [NSURLRequest requestWithURL:url 
-										  cachePolicy:NSURLRequestReloadIgnoringLocalCacheData 
+	NSURLRequest* request = [NSURLRequest requestWithURL:url
+										  cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
 								          timeoutInterval:policy.urlTimeoutTime];
-	self.urlConn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-	[urlConn release];
+	self.urlConn = [[[NSURLConnection alloc] initWithRequest:request delegate:self] autorelease];
 	if (urlConn==nil) {
 		NSLog(@"HJMOHandler nil URLConnection for %@",url);
 		state=stateFailed;
 	} else {
 		state=stateLoading;
-		//TODO if app is showing a network activity monitor in the status bar, here is where a call needs to be 
+		//TODO if app is showing a network activity monitor in the status bar, here is where a call needs to be
 		// made to increment the number of active URLs
 	}
 }
@@ -277,12 +276,12 @@
 		//can't go to stateReady because there's no user to do it. stay in stateLoaded.
 		//this is not a bug, it can happen if the object has already been deleted before its content was
 		//loaded over the net, eg because scrolled off the top of a table.
-		//NSLog(@"HJMOHandler no user object to make it ready"); 
-		return; 
+		//NSLog(@"HJMOHandler no user object to make it ready");
+		return;
 	}
-		
+
 	self.managedObj=nil; //just to be sure there's not some old one around
-	//pick _one_ and only one user to take mo from loaded to ready	
+	//pick _one_ and only one user to take mo from loaded to ready
 	id<HJMOUser> user = [users objectAtIndex:0];
 	@try {
 		[user changeManagedObjStateFromLoadedToReady];
@@ -290,7 +289,7 @@
 			state = stateReady;  //because it worked
 			[self callbackReadyToUsers];
 		}
-	} 
+	}
 	@catch (id exception) {
 		NSLog(@"%@",exception);
 		self.managedObj=nil;
@@ -298,7 +297,7 @@
 	@finally {
 		if (managedObj==nil) {
 			//managedObj was still nil, ie going from loaded to ready failed. go to stateFailed and clean up from caches
-			state = stateFailed; 
+			state = stateFailed;
 			self.moReadyDataFilename = nil;
 			self.moData=nil;
 			[objManager removeFromHandlerFromCaches:self];
@@ -344,13 +343,13 @@
 		NSString* readyFilename = [self.objManager.fileCache loadingFinishedForOid:oid];
 		if (readyFilename==nil) {
 			state = stateFailed;
-			[self callbackFailedToUsers]; 
+			[self callbackFailedToUsers];
 			return;
 		} else {
 			self.moReadyDataFilename = readyFilename;
 		}
 	}
-	//TODO if app is showing a network activity monitor in the status bar, here is where a call needs to be 
+	//TODO if app is showing a network activity monitor in the status bar, here is where a call needs to be
 	// made to decrement the count of active URLs
 	[objManager handlerFinishedDownloading:self];
 	[self goFromLoadedToReady];
@@ -363,9 +362,9 @@
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
 	state = stateFailed;
 	NSLog(@"HJMOHandler URLConnection failed %@",error);
-	//TODO if app is showing a network activity monitor in the status bar, here is where a call needs to be 
+	//TODO if app is showing a network activity monitor in the status bar, here is where a call needs to be
 	// made to decrement the count of active URLs
-	[self clearLoadingState]; 
+	[self clearLoadingState];
 	self.moReadyDataFilename = nil;
 	self.moData=nil;
 	[objManager removeFromHandlerFromCaches:self];

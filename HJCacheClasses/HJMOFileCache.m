@@ -20,7 +20,7 @@
 
 
 -(HJMOFileCache*)initWithRootPath:(NSString*)root {
-	[super init];
+	self = [super init];
 	isCounting = NO;
 	fileCount = 0;
 	byteCount = 0;
