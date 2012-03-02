@@ -23,7 +23,7 @@
 @synthesize modification;
 @synthesize loadingWheel;
 @synthesize index;
-
+@synthesize desiredContentMode;
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -33,6 +33,7 @@
 		url=nil;
 		onImageTap = nil;
 		index = -1;
+        self.desiredContentMode = UIViewContentModeScaleAspectFit;
 		self.userInteractionEnabled = NO; //because want to treat it like a UIImageView. Just turn this back on if you want to catch taps.
     }
     return self;
@@ -132,7 +133,7 @@
 	
 	[imageView removeFromSuperview];
 	self.imageView = [[[UIImageView alloc] initWithImage:theImage] autorelease];
-	imageView.contentMode = UIViewContentModeScaleAspectFit;
+	imageView.contentMode = desiredContentMode;
 	imageView.autoresizingMask = ( UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight );
 	[self addSubview:imageView];
 	imageView.frame = self.bounds;
@@ -146,6 +147,11 @@
 	if (image!=nil) {
 		[callbackOnSetImage managedImageSet:self];
 	}
+}
+
+- (void) setDesiredContentMode:(UIViewContentMode)desiredContentMode_ {
+    desiredContentMode = desiredContentMode_;
+    imageView.contentMode = desiredContentMode;
 }
 
 -(void) showLoadingWheel {
