@@ -127,7 +127,7 @@
 	NSError* e=nil;
 	[[NSFileManager defaultManager] moveItemAtPath:loadingFilename toPath:readyFilename error:&e];
 	if (e) {
-		NSLog(@"HJMOFileCache failed to move loading file to ready file %@",readyFilename);
+		VLRLog(@"HJMOFileCache failed to move loading file to ready file %@",readyFilename);
 		return nil;
 	} else {
 		if (isCounting) {
@@ -193,7 +193,7 @@ int fileAgeCompareFunction(id obj1, id obj2, void *context) {
 	//creation date used to see age of file
 	//modification date used to see staleness of file - how long since last used.
 	
-	NSLog(@"triming cache %@",cachePath);
+	VLRLog(@"triming cache %@",cachePath);
 	
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	NSString *file;
@@ -257,7 +257,7 @@ int fileAgeCompareFunction(id obj1, id obj2, void *context) {
 			index--;
 		}
 	}
-	NSLog(@"cache file trimed %i files",deletedCount);
+	VLRLog(@"cache file trimed %i files",deletedCount);
 	if (isCounting) {
 		fileCount -= deletedCount;
 		byteCount -= deletedBytes;
