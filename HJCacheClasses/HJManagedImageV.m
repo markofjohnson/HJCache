@@ -132,7 +132,7 @@
 	
 	[imageView removeFromSuperview];
 	self.imageView = [[[UIImageView alloc] initWithImage:theImage] autorelease];
-	imageView.contentMode = UIViewContentModeScaleAspectFit;
+	imageView.contentMode = self.contentMode;
 	imageView.autoresizingMask = ( UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight );
 	[self addSubview:imageView];
 	imageView.frame = self.bounds;
