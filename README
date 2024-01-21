@@ -1,3 +1,4 @@
+This project is retired. It was Objective-C with old retain/release memory management. 
 
 HJCache is library for asynchronous download of images and other data over the net, and for sharing 
 and caching them. Its for iPhone / iOS, it works with data other than images too, and its free.
